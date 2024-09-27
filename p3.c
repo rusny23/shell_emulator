@@ -1,4 +1,6 @@
+//test file used as input for the shell
+
 int main(int argc, char *argv[]){ 
-    printf("Heller");
+    printf("Hello");
     return 0;
 }
