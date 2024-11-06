@@ -25,6 +25,7 @@ int get_length(char **arr);
 void grow_args_array(char ***arr, int size, size_t *capacity);
 void multiple_args_check(char ***myargs, int myargs_length);
 void run_children(char ***myargs, int *start_idxs, int myargs_length);
+void strip_quotes(char *arg);
 
 int main(int argc, char *argv[]) {
     setenv("PS1", "jsh$ ", 1);
@@ -121,9 +122,11 @@ void parse_input(char *token, char *s){
             return;
         }
 
+        strip_quotes(token);
         strcpy(myargs[index], token);
 
         index++;
+        
         token = strtok(NULL, s);
     }
     
@@ -134,6 +137,20 @@ void parse_input(char *token, char *s){
     int myargs_length = index + 1;
 
     multiple_args_check(&myargs, myargs_length);
+}
+
+/* Function:   strip_quotes
+ * Parameters: a string
+ * Purpose:    remove extra quotes that could mess with argument parsing
+ * Returns:    nothing
+ */
+void strip_quotes(char *arg) {
+    size_t length = strlen(arg);
+    if (length > 1 && ((arg[0] == '"' && arg[length-1] == '"') || 
+        (arg[0] == '\'' && arg[length-1] == '\''))) {
+        arg[length-1] = '\0';  //Remove the last quote
+        memmove(arg, arg+1, length-1);  //Shift the string left to remove quote
+    }
 }
 
 
@@ -319,7 +336,3 @@ void grow_args_array(char ***arr, int size, size_t *capacity){
         *arr = new_myargs;
     }
 }
-
-
-
-
