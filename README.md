@@ -1,4 +1,4 @@
-# JumboShell (jsh) - A Unix-like Shell Emulator
+# A Unix-like Shell Emulator
 
 This project implements a custom shell called `jumboshell`. This shell allows users to execute commands with or without arguments, similar to traditional shells like Bash. It supports piping ('|'), which allows users to chain commands by passing the output of one command as the input to the next.
 
